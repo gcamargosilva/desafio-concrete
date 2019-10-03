@@ -2,7 +2,7 @@ swagger: "2.0"
 info:
   version: "1.0.0"
   title: Desafion Concrete !
-host: localhost:10010
+host: desafio-cs.us-east-1.elasticbeanstalk.com
 basePath: /
 schemes:
   - http

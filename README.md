@@ -9,6 +9,10 @@ Crie um aplicativo backend que exporá uma API RESTful de criação de sing up/s
  - JWT
 ## Links 
 
+**Documentação**
+    
+    http://desafio-cs.us-east-1.elasticbeanstalk.com/docs/
+
 ## Referência de desenvolvimento
 
 Executar o projeto:
