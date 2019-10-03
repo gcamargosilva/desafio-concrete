@@ -44,6 +44,8 @@ ClientSchema.methods.toJSON = function () {
   const obj = this.toObject();
   // eslint-disable-next-line no-underscore-dangle
   delete obj._id;
+  // eslint-disable-next-line no-underscore-dangle
+  delete obj.__v;
   return obj;
 };
 
