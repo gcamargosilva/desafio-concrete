@@ -37,7 +37,7 @@ Executar o projeto:
 
   
 
-npm run start
+`npm run start`
 
 Obs: Esse comando também realiza a validação do Lint
 
@@ -49,7 +49,7 @@ Descomentar ` module.exports = app;`do arquivo api/app.js
 
   
 
-npm run test
+`npm run test`
 
   
 
@@ -73,7 +73,7 @@ ORM's como Sequelize já realizam essa atualização automaticamente.
 
 **POST /SignIn**
 
-Caso o não esteja expirado, retorna o usuário com o mesmo token, caso o token já esteja expirado, é gerado um novo, e então retornado ao usuário.
+Caso o token não esteja expirado, retorna o usuário com o mesmo token, caso o token já esteja expirado, é gerado um novo, e então retornado ao usuário.
 
   
 
