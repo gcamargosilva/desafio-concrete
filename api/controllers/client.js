@@ -15,11 +15,8 @@ async function post(req, res) {
   client.senha = await bcrypt.hash(clientRequest.senha, 10);
 
   await client.save();
-  // Delete MongoDb Id
-  // eslint-disable-next-line no-underscore-dangle
-  delete client._id;
 
-  return res.status(200).send(client);
+  return res.status(200).send(client.toJSON());
 }
 
 async function get(req, res) {
@@ -31,11 +28,7 @@ async function get(req, res) {
 
   const client = await Client.findOne({ id: clientId });
 
-  // Delete MongoDb Id
-  // eslint-disable-next-line no-underscore-dangle
-  delete client._id;
-
-  return res.status(200).send(client);
+  return res.status(200).send(client.toJSON());
 }
 
 // Adjust for async functions in swagger-node

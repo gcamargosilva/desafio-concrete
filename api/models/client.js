@@ -40,6 +40,13 @@ ClientSchema.methods.generateToken = function () {
   return token;
 };
 
+ClientSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  // eslint-disable-next-line no-underscore-dangle
+  delete obj._id;
+  return obj;
+};
+
 ClientSchema.plugin(updatedTimestamp);
 
 const Client = mongoose.model('Client', ClientSchema);
