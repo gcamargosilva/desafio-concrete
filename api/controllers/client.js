@@ -30,6 +30,11 @@ async function get(req, res) {
   if (clientId !== infoToken.id) return res.status(403).send({ message: 'Não autorizado' });
 
   const client = await Client.findOne({ id: clientId });
+
+  // Delete MongoDb Id
+  // eslint-disable-next-line no-underscore-dangle
+  delete client._id;
+
   return res.status(200).send(client);
 }
 

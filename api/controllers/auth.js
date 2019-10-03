@@ -22,6 +22,10 @@ async function auth(req, res) {
   } catch (error) {
     client.token = client.generateToken();
     await client.save();
+
+    // Delete MongoDb Id
+    // eslint-disable-next-line no-underscore-dangle
+    delete client._id;
     return res.status(200).send(client);
   }
 }
