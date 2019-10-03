@@ -1,0 +1,194 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: Desafion Concrete !
+host: localhost:10010
+basePath: /
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json 
+tags:
+  - name: "Client"
+    description: "Everything about clients"
+  - name: "Login"
+    description: "Everything about login"
+paths:
+  /client:
+      x-swagger-router-controller: client
+      post:
+        description: Create a user on application
+        tags:
+          - Client
+        operationId: post
+        parameters:
+          - name: client
+            in: body
+            description: The complete information about client
+            required: false
+            schema: 
+               $ref: "#/definitions/Client"
+        responses:
+          "200":
+            description: Success
+            schema:
+               allOf: 
+                - $ref: "#/definitions/Client"
+                - $ref: "#/definitions/CreatedClientData"
+          "400":
+            description: Bad request
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+          "401":
+            description: Unathorized
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+          "500":
+            description: Internal server error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /client/{clientId}:
+      x-swagger-router-controller: client
+      get:
+        description: Get self user on application (This endpoint require the bearer authentication, but this is not avaliable in Swagger 2.0, use Postman ou Shell to test)
+        tags:
+          - Client
+        operationId: get
+        parameters:
+          - name: clientId
+            in: path
+            description: The Id of client
+            required: true
+            type: string
+        responses:
+          "200":
+            description: Success
+            schema:
+               allOf: 
+                - $ref: "#/definitions/Client"
+                - $ref: "#/definitions/CreatedClientData"
+          "400":
+            description: Bad request
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+          "401":
+            description: Unathorized
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+          "500":
+            description: Internal server error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /swagger:
+    x-swagger-pipe: swagger_raw
+  /signin:
+        x-swagger-router-controller: auth
+        post:
+          description: Create a user on application
+          tags:
+            - Login
+          operationId: auth
+          parameters:
+            - name: signIn
+              in: body
+              description: The user and login of client
+              required: false
+              schema: 
+                $ref: "#/definitions/SignIn"
+          responses:
+            "200":
+              description: Success
+              schema:
+                allOf: 
+                  - $ref: "#/definitions/Client"
+                  - $ref: "#/definitions/CreatedClientData"
+            "400":
+              description: Bad request
+              schema:
+                $ref: "#/definitions/ErrorResponse"
+            "401":
+              description: Unathorized
+              schema:
+                $ref: "#/definitions/ErrorResponse"
+            "500":
+              description: Internal server error
+              schema:
+                $ref: "#/definitions/ErrorResponse"
+definitions:
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  Telephone:
+    required:
+      - numero
+      - ddd
+    properties:
+      numero:
+        type: string
+        minLength: 8
+        maxLength: 10
+      ddd:
+        type: string
+        minLength: 2
+        maxLength: 2
+  Client:
+    required:
+      - nome
+      - email
+      - senha
+      - telefones
+    properties: 
+      nome:
+        type: string
+        minLength: 3
+        maxLength: 50
+      email: 
+        type: string
+        format: email
+        minLength: 3
+        maxLength: 255
+      senha:
+        type: string
+        minLength: 3
+        maxLength: 255
+      telefones:
+        type: array 
+        items: 
+          $ref: '#/definitions/Telephone'
+  CreatedClientData:
+    properties:
+      id:
+        type: string
+        format: guid
+      data_criacao:
+        type: string
+        format: datetime
+      data_atualizacao:
+        type: string
+        format: datetime
+      ultimo_login:
+        type: string
+        format: datetime
+      token:
+        type: string
+  SignIn:
+    required:
+      - email
+      - senha
+    properties:
+      email:
+        type: string
+        format: email
+        minLength: 3
+        maxLength: 255
+      senha:
+        type: string
+        minLength: 3
+        maxLength: 255
+  
